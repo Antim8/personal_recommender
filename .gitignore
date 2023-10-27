@@ -1,0 +1,30 @@
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# Python virtual environment
+venv/
+env/
+
+# Python compiled files
+*.pyc
+__pycache__/
+
+# Web project dependencies
+node_modules/
+bower_components/
+
+# Web project build artifacts
+dist/
+build/
+*.log
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Editor backup files
+*~
+*.swp
