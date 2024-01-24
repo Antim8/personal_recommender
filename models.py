@@ -1,6 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import UserMixin
 
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+
 db = SQLAlchemy()
 
 # Define the User data-model.
@@ -65,3 +68,9 @@ class Rating(db.Model):
     rating = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime())
     movie = db.relationship('Movie', backref='ratings', lazy=True)
+
+
+def get_movie_by_id(movie_id):
+    # Query the database to get the movie details based on the movie ID
+    movie = Movie.query.get(movie_id)
+    return movie
