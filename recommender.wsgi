@@ -1,8 +1,8 @@
 import sys
 
 import os
-sys.path.insert(1, '/home/user137/public_html/search_engine')
-os.chdir('/home/user137/public_html/search_engine')
+sys.path.insert(1, '/home/user137/public_html/personal_recommender')
+os.chdir('/home/user137/public_html/personal_recommender')
 
-from search import app
+from recommender import app
 application = app
