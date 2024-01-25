@@ -4,21 +4,8 @@ import datetime
 from flask import Flask, render_template, request
 from flask_user import login_required, UserManager, current_user
 
-from models import db, User, Movie, MovieGenre, Link, Tag, Rating
+from models import db, User, Movie, Rating
 from read_data import check_and_read_data
-
-# import sleep from python
-from time import sleep
-
-import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
-
-#collaborative filtering 
-
-from models import db, User, Movie, MovieGenre, Link, Tag, Rating
-from read_data import check_and_read_data
-import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
 
 
 
@@ -132,8 +119,6 @@ def initdb_command():
     """Creates the database tables."""
     check_and_read_data(db)
     print('Initialized the database.')
-    # Collaborative Filtering
-    #user_based_collaborative_filtering()  # Add this line to call the collaborative filtering function
 
 
 # The Home page is accessible to anyone

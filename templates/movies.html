@@ -37,15 +37,6 @@
         </div>
     {% endfor %}
 
-    {# {% if current_user.is_authenticated %}
-        <h3>Collaborative Filtering Recommendations</h3>
-        <ul>
-            {% for movie_id, predicted_rating in collaborative_filtering_recommendations.items() %}
-                {% set movie = get_movie_by_id(movie_id) %}
-                <li>{{ movie.title }} - Predicted Rating: {{ predicted_rating }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %} #}
 </div>
 
 <script>
