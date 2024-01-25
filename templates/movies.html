@@ -5,19 +5,39 @@
 
     {% for m in movies %}
         <div class="panel panel-default">
-            <!-- Existing movie details code... -->
-
-            <div class="panel-footer movie-rating">Rate:
-                <a href="#" class="card-link" data-movieid="{{ m.id }}">1</a>
-                <a href="#" class="card-link" data-movieid="{{ m.id }}">2</a>
-                <a href="#" class="card-link" data-movieid="{{ m.id }}">3</a>
-                <a href="#" class="card-link" data-movieid="{{ m.id }}">4</a>
-                <a href="#" class="card-link" data-movieid="{{ m.id }}">5</a> Stars
+            <div class="panel-heading"><b>{{ m.title }}</b></div>
+            <div class="panel-body">
+                <p>
+                    {% for g in m.genres %}
+                        <span class="label label-default">{{ g.genre }}</span>
+                    {% endfor %}
+                </p>
             </div>
+            <div class="panel-body">
+                <p>
+                    {% for t in m.tags %}
+                        <span class="label label-default">{{ t.tag }}</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <a href="{{ m.links.movielensLink }}">Movielens</a>
+                    <a href="{{ m.links.imbdbLink }}">imdb</a>
+                    <a href="{{ m.links.tmbLink }}">Tmb</a>
+                </p>
+            </div>
+              <div class="panel-footer movie-rating">Rate:
+                  <a href="#" class="card-link" data-movieid="{{m.id}}">1</a>
+                  <a href="#" class="card-link" data-movieid="{{m.id}}">2</a>
+                  <a href="#" class="card-link" data-movieid="{{m.id}}">3</a>
+                  <a href="#" class="card-link" data-movieid="{{m.id}}">4</a>
+                  <a href="#" class="card-link" data-movieid="{{m.id}}">5</a> Stars
+              </div>
         </div>
     {% endfor %}
 
-    {% if current_user.is_authenticated %}
+    {# {% if current_user.is_authenticated %}
         <h3>Collaborative Filtering Recommendations</h3>
         <ul>
             {% for movie_id, predicted_rating in collaborative_filtering_recommendations.items() %}
@@ -25,7 +45,7 @@
                 <li>{{ movie.title }} - Predicted Rating: {{ predicted_rating }}</li>
             {% endfor %}
         </ul>
-    {% endif %}
+    {% endif %} #}
 </div>
 
 <script>

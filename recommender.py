@@ -1,5 +1,6 @@
 # Contains parts from: https://flask-user.readthedocs.io/en/latest/quickstart_app.html
 
+import datetime
 from flask import Flask, render_template, request
 from flask_user import login_required, UserManager, current_user
 
@@ -148,13 +149,11 @@ def home_page():
 def movies_page():
     # String-based templates
 
-    # First 10 movies
+    # First 30 movies
     movies = Movie.query.limit(30).all()
 
     # Collaborative Filtering Recommendations
     #collaborative_filtering_recommendations = user_based_collaborative_filtering(current_user.id)
-
-    return render_template("movies.html", movies=movies )
 
 
     # only Romance movies
@@ -172,11 +171,22 @@ def movies_page():
 @app.route('/rate', methods=['POST'])
 @login_required  # User must be authenticated
 def rate():
-    movieid = request.form.get('movieid')
-    rating = request.form.get('rating')
-    userid = current_user.id
-    print("Rate {} for {} by {}".format(rating, movieid, userid))
-    return render_template("rated.html", rating=rating)
+    movieId = request.form.get('movieid')
+    rating = int(request.form.get('rating'))
+    rating_num = rating
+    userId = current_user.id
+    dt_object = datetime.datetime.now()
+    if Rating.query.filter_by(userId=userId, movieId=movieId).count() > 0:
+        rating = Rating.query.filter_by(userId=userId, movieId=movieId).first()
+        rating.rating = rating_num
+        rating.timestamp = dt_object
+        db.session.commit()
+    else:
+        rating = Rating(userId=userId, movieId=movieId, rating=rating, timestamp=dt_object)
+        db.session.add(rating)
+        db.session.commit()
+    print("Rate {} for {} by {}".format(rating, movieId, userId))
+    return render_template("rated.html", rating=rating_num)
 
 
 # Route to display collaborative filtering recommendations for a specific user
