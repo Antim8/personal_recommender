@@ -111,7 +111,7 @@ def collaborative_filtering_recommendations(user_id):
                 recommended_movie_ids.add(rating.movieId)
 
     # Get movie details based on recommended IDs
-    recommended_movies = Movie.query.filter(Movie.id.in_(recommended_movie_ids)).all()
+    recommended_movies = Movie.query.filter(Movie.id.in_(recommended_movie_ids)).limit(15).all()
 
     return recommended_movies
 
@@ -140,7 +140,7 @@ def initdb_command():
 @app.route('/')
 def home_page():
     # render home.html template
-    return render_template("home.html")
+    return render_template("home.html", current_user=current_user)
 
 
 # The Members page is only accessible to authenticated users via the @login_required decorator
@@ -194,10 +194,8 @@ def rate():
 @login_required
 def display_recommendations():
 
-    print("Reached display_recommendations")  # Debugging statement
-
     # Get user_id from the query parameters
-    user_id = int(request.args.get('user_id', 1))  # Default to 1 if not provided
+    user_id = current_user.id
 
     # Get collaborative filtering recommendations for the specified user
     recommendations = collaborative_filtering_recommendations(user_id)
